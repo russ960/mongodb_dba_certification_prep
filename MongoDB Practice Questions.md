@@ -163,10 +163,10 @@ c) db.collection.insert({ name: "Alice", age: 25 })
 d) db.collection.add({ "name": "Alice", "age": 25 })
 
 2\. Which of the following will correctly insert multiple documents into a collection?  
-a) db.collection.insertMany(\[{ "name": "Alice" }, { "name": "Bob" }\])  
+a) db.collection.insertMany([{ "name": "Alice" }, { "name": "Bob" }])  
 b) db.collection.insert({ "name": "Alice" }, { "name": "Bob" })  
 c) INSERT INTO collection VALUES ("Alice"), ("Bob");  
-d) db.collection.addMany(\[{ "name": "Alice" }, { "name": "Bob" }\])
+d) db.collection.addMany([{ "name": "Alice" }, { "name": "Bob" }])
 
 3\. What is a potential issue with using insert() instead of insertOne() or insertMany()?  
 a) insert() is deprecated in newer versions of MongoDB  
@@ -188,7 +188,7 @@ d) The insert is rejected due to schema validation
 
 Answer Page  
 a) db.collection.insertOne({ "name": "Alice", "age": 25 })  
-a) db.collection.insertMany(\[{ "name": "Alice" }, { "name": "Bob" }\])  
+a) db.collection.insertMany([{ "name": "Alice" }, { "name": "Bob" }])  
 a) insert() is deprecated in newer versions of MongoDB  
 c) Table  
 a) The document is inserted with null values for missing fields (unless validation rules are enforced)
@@ -203,34 +203,29 @@ d) MongoDB throws an error
 
 2\. Given the following existing document:
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "name": "Alice", "age": 25, "city": "New York" }  
+```json
+{ "_id": 1, "name": "Alice", "age": 25, "city": "New York" }
+```  
 What will be the final state of the document after running the update command below?
 
-js  
-Copy  
-Edit  
-db.users.updateOne({ "\_id": 1 }, { "name": "Bob", "age": 30 })  
+```js
+db.users.updateOne({ "_id": 1 }, { "name": "Bob", "age": 30 })
+```
 a)
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "name": "Bob", "age": 30, "city": "New York" }  
+```json
+{ "_id": 1, "name": "Bob", "age": 30, "city": "New York" }  
+```
 b)
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "name": "Bob", "age": 30 }  
+```json  
+{ "_id": 1, "name": "Bob", "age": 30 }  
+```
 c)
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "name": "Alice", "age": 30 }  
+```json
+{ "_id": 1, "name": "Alice", "age": 30 }  
+```
 d) The command will fail
 
 3\. Which method should be used to ensure only specific fields are updated while keeping the rest of the document unchanged?  
@@ -240,9 +235,9 @@ c) updateMany()
 d) findAndModify()
 
 4\. If an update operation replaces an entire document, what must be included to prevent errors?  
-a) All previous fields, including \_id  
+a) All previous fields, including _id  
 b) The $set operator  
-c) An index on \_id  
+c) An index on _id  
 d) The $replace operator
 
 5\. How does MongoDB handle fields that existed in the original document but are missing in the updated document?  
@@ -253,9 +248,9 @@ d) The update is rejected
 
 Answer Page  
 b) The entire document is replaced with the provided document  
-b) { "\_id": 1, "name": "Bob", "age": 30 }  
+b) { "_id": 1, "name": "Bob", "age": 30 }  
 a) updateOne()  
-a) All previous fields, including \_id  
+a) All previous fields, including _id  
 b) They are deleted
 
 **2.3 Give an update scenario where $set is used, identify the output and how the database changed state.**  
@@ -268,34 +263,29 @@ d) To insert a new document
 
 2\. Given the following existing document:
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "name": "Alice", "age": 25, "city": "New York" }  
+```json
+{ "_id": 1, "name": "Alice", "age": 25, "city": "New York" }  
+```
 What will be the final state of the document after running the command below?
 
-js  
-Copy  
-Edit  
-db.users.updateOne({ "\_id": 1 }, { $set: { "age": 30 } })  
+```js
+db.users.updateOne({ "_id": 1 }, { $set: { "age": 30 } })  
+```
 a)
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "name": "Alice", "age": 30, "city": "New York" }  
+```json
+{ "_id": 1, "name": "Alice", "age": 30, "city": "New York" }  
+```
 b)
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "age": 30 }  
+```json
+{ "_id": 1, "age": 30 }  
+```
 c)
 
-json  
-Copy  
-Edit  
-{ "\_id": 1, "age": 30, "city": "New York" }  
+```json
+{ "_id": 1, "age": 30, "city": "New York" }  
+```
 d) The command will fail
 
 3\. What happens when $set is used on a field that does not exist in the document?  
@@ -318,7 +308,7 @@ d) There is no difference
 
 Answer Page  
 b) To update only the specified fields  
-a) { "\_id": 1, "name": "Alice", "age": 30, "city": "New York" }  
+a) { "_id": 1, "name": "Alice", "age": 30, "city": "New York" }  
 b) The field is added to the document  
 b) updateMany()  
 b) $set only modifies specified fields, while omitting update operators replaces the entire document
@@ -334,28 +324,24 @@ d) It prevents updates
 2\. Which command correctly performs an upsert operation?  
 a)
 
-js  
-Copy  
-Edit  
+```js
 db.users.updateOne({ "name": "Alice" }, { $set: { "age": 25 } }, { upsert: true })  
+```
 b)
 
-js  
-Copy  
-Edit  
+```js    
 db.users.upsert({ "name": "Alice" }, { "age": 25 })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.updateOne({ "name": "Alice" }, { $upsert: { "age": 25 } })  
+```
 d)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.insertOne({ "name": "Alice", "age": 25 }, { upsert: true })  
+```
 3\. If an upsert operation finds a matching document, what happens?  
 a) The document is updated  
 b) A new document is inserted  
@@ -392,39 +378,34 @@ d) findOneAndUpdate()
 
 2\. Given the following collection:
 
-json  
-Copy  
-Edit  
-\[  
-  { "\_id": 1, "status": "pending" },  
-  { "\_id": 2, "status": "pending" },  
-  { "\_id": 3, "status": "approved" }  
-\]  
+```json  
+[  
+  { "_id": 1, "status": "pending" },  
+  { "_id": 2, "status": "pending" },  
+  { "_id": 3, "status": "approved" }  
+]
+``` 
 Which command will update all "pending" statuses to "completed"?  
 a)
 
-js  
-Copy  
-Edit  
+```js  
 db.orders.updateOne({ "status": "pending" }, { $set: { "status": "completed" } })  
+```
 b)
 
-js  
-Copy  
-Edit  
+```js  
 db.orders.updateMany({ "status": "pending" }, { $set: { "status": "completed" } })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.orders.update({ "status": "pending" }, { $set: { "status": "completed" } })  
+```
 d)
 
-js  
-Copy  
-Edit  
+```js  
 db.orders.findAndModify({ "status": "pending" }, { $set: { "status": "completed" } })  
+```
 3\. What happens if an updateMany() operation is executed without a filter?  
 a) It updates a single document  
 b) It updates all documents in the collection  
@@ -460,14 +441,13 @@ d) Modifies multiple documents at once
 
 2\. Given the following command:
 
-js  
-Copy  
-Edit  
+```js  
 db.users.findAndModify({  
     query: { "name": "Alice" },  
     update: { $set: { "age": 30 } },  
     new: true  
 })  
+```
 What will be returned?  
 a) The document before the update  
 b) The document after the update  
@@ -585,24 +565,24 @@ c) Checks if a field exists in a document
 d) Filters documents based on a regular expression
 
 2\. Given the following collection:  
-\[  
-  { "\_id": 1, "name": "Alice", "age": 25 },  
-  { "\_id": 2, "name": "Bob", "age": 30 },  
-  { "\_id": 3, "name": "Charlie", "age": 35 }  
-\]  
+[  
+  { "_id": 1, "name": "Alice", "age": 25 },  
+  { "_id": 2, "name": "Bob", "age": 30 },  
+  { "_id": 3, "name": "Charlie", "age": 35 }  
+]  
 Which query would return both Alice and Charlie?  
 a)
 
-db.users.find({ "age": { $in: \[25, 35\] } })  
+db.users.find({ "age": { $in: [25, 35] } })  
 b)
 
-db.users.find({ "age": { $eq: \[25, 35\] } })  
+db.users.find({ "age": { $eq: [25, 35] } })  
 c)
 
-db.users.find({ "age": { $contains: \[25, 35\] } })  
+db.users.find({ "age": { $contains: [25, 35] } })  
 d)
 
-db.users.find({ "age": { $exists: \[25, 35\] } })  
+db.users.find({ "age": { $exists: [25, 35] } })  
 3\. What happens if $in is used with an empty array?  
 a) It returns all documents  
 b) It returns an error  
@@ -615,10 +595,10 @@ a)
 db.users.find({ "status": { $eq: "active", $eq: "pending" } })  
 b)
 
-db.users.find({ "status": { $or: \["active", "pending"\] } })  
+db.users.find({ "status": { $or: ["active", "pending"] } })  
 c)
 
-db.users.find({ "status": { $in: \["active", "pending"\] } })  
+db.users.find({ "status": { $in: ["active", "pending"] } })  
 d)
 
 db.users.find({ "status": "active", "status": "pending" })  
@@ -630,9 +610,9 @@ d) Only with numeric values
 
 Answer Page  
 b) Checks if a field’s value matches any value in a specified array  
-a) db.users.find({ "age": { $in: \[25, 35\] } })  
+a) db.users.find({ "age": { $in: [25, 35] } })  
 c) It returns no documents  
-c) db.users.find({ "status": { $in: \["active", "pending"\] } })  
+c) db.users.find({ "status": { $in: ["active", "pending"] } })  
 a) Yes, it matches elements within arrays
 
 **2.12 Identify documents matched by an $elemMatch expression.**  
@@ -645,7 +625,7 @@ d) Joins two collections
 
 2\. Given the following document:
 
-{ "\_id": 1, "grades": \[ { "subject": "Math", "score": 80 }, { "subject": "English", "score": 90 } \] }  
+{ "_id": 1, "grades": [ { "subject": "Math", "score": 80 }, { "subject": "English", "score": 90 } ] }  
 Which query finds documents where the grades array has an entry with "Math" and a score above 75?  
 a)
 
@@ -658,7 +638,7 @@ c)
 db.students.find({ "grades": { $elemMatch: { "subject": "Math", "score": { $gt: 75 } } } })  
 d)
 
-db.students.find({ "grades": { $in: \[{ "subject": "Math", "score": { $gt: 75 } }\] } })  
+db.students.find({ "grades": { $in: [{ "subject": "Math", "score": { $gt: 75 } }] } })  
 3\. Can $elemMatch be used on non-array fields?  
 a) Yes  
 b) No  
@@ -680,10 +660,10 @@ b)
 db.students.find({ "scores": { $gt: 85 } })  
 c)
 
-db.students.find({ "scores": { $in: \[85\] } })  
+db.students.find({ "scores": { $in: [85] } })  
 d)
 
-db.students.find({ "scores": { $all: \[85\] } })  
+db.students.find({ "scores": { $all: [85] } })  
 Answer Page  
 a) Finds documents where an array field contains at least one element matching multiple conditions  
 c) db.students.find({ "grades": { $elemMatch: { "subject": "Math", "score": { $gt: 75 } } } })  
@@ -700,10 +680,9 @@ d) All of the above
 
 \*\*2. Given the following query:
 
-js  
-Copy  
-Edit  
-db.users.find({ $and: \[ { age: { $gt: 25 } }, { age: { $lt: 40 } } \] })  
+```js  
+db.users.find({ $and: [ { age: { $gt: 25 } }, { age: { $lt: 40 } } ] })  
+```
 What will it return?  
 a) Documents where age is greater than 40  
 b) Documents where age is between 25 and 40 (exclusive)  
@@ -712,10 +691,9 @@ d) Documents where age is either greater than 25 or less than 40
 
 3\. What does the following query do?
 
-js  
-Copy  
-Edit  
-db.products.find({ $or: \[ { price: { $lt: 10 } }, { category: "electronics" } \] })  
+```js  
+db.products.find({ $or: [ { price: { $lt: 10 } }, { category: "electronics" } ] })  
+```
 a) Finds all products where price is less than 10 AND category is "electronics"  
 b) Finds all products where price is less than 10 OR category is "electronics"  
 c) Returns an error due to incorrect syntax  
@@ -723,10 +701,9 @@ d) Ignores the $or condition and matches only category: "electronics"
 
 4\. What will the following query return?
 
-js  
-Copy  
-Edit  
-db.orders.find({ $nor: \[ { status: "shipped" }, { status: "delivered" } \] })  
+```js  
+db.orders.find({ $nor: [ { status: "shipped" }, { status: "delivered" } ] })  
+```
 a) Orders with status "shipped" or "delivered"  
 b) Orders with neither "shipped" nor "delivered" status  
 c) All orders in the collection  
@@ -755,10 +732,9 @@ d) Groups documents
 
 2\. Given the following query:
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ age: \-1 }).limit(2)  
+```
 What does it do?  
 a) Returns all users sorted by age in ascending order  
 b) Returns the first 2 users sorted by age in descending order  
@@ -774,28 +750,24 @@ d) Both must be wrapped in an $aggregate query
 4\. How do you retrieve the top 5 most expensive products from a collection?  
 a)
 
-js  
-Copy  
-Edit  
+```js  
 db.products.find().sort({ price: \-1 }).limit(5)  
+```
 b)
 
-js  
-Copy  
-Edit  
+```js  
 db.products.find().limit(5).sort({ price: \-1 })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.products.find().sort({ price: 1 }).limit(5)  
+```
 d)
 
-js  
-Copy  
-Edit  
+```js  
 db.products.find().order({ price: "desc" }).limit(5)  
+```
 5\. What happens if .limit(0) is used?  
 a) It returns no documents  
 b) It removes the limit, returning all matching documents  
@@ -814,96 +786,84 @@ Multiple Choice Questions
 1\. Which projection correctly returns only the name field?  
 a)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { name: 1, \_id: 0 })  
+```js  
+db.users.find({}, { name: 1, _id: 0 })  
+```
 b)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find({}, { name: true })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find({}, { name: 1, age: 1 })  
+```
 d)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find({}, { name: "only" })  
+```
 2\. What happens if you mix inclusion and exclusion in a projection?  
 a) MongoDB throws an error  
 b) MongoDB ignores the exclusion fields  
 c) MongoDB ignores the inclusion fields  
 d) MongoDB allows both
 
-3\. What does the projection { \_id: 0, email: 1 } do?  
+3\. What does the projection { _id: 0, email: 1 } do?  
 a) Returns only the email field  
-b) Returns both \_id and email  
+b) Returns both _id and email  
 c) Returns all fields except email  
 d) Returns an error
 
 4\. Which of the following is an incorrect projection?  
 a)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find({}, { name: 1, age: 0 })  
+```
 b)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { \_id: 0, email: 1 })  
+```js  
+db.users.find({}, { _id: 0, email: 1 })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find({}, { name: 1, age: 1 })  
+```
 d)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { \_id: 1, phone: 0 })  
-5\. How do you exclude only the \_id field in a projection?  
+```js  
+db.users.find({}, { _id: 1, phone: 0 })  
+```
+5\. How do you exclude only the _id field in a projection?  
 a)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { \_id: 0 })  
+```js  
+db.users.find({}, { _id: 0 })  
+```
 b)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { \_id: false })  
+```js  
+db.users.find({}, { _id: false })  
+```
 c)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { \_id: "hide" })  
+```js  
+db.users.find({}, { _id: "hide" })  
+```
 d)
 
-js  
-Copy  
-Edit  
-db.users.find({}, { \_id: \-1 })  
+```js  
+db.users.find({}, { _id: \-1 })  
+```
 Answer Page  
-a) db.users.find({}, { name: 1, \_id: 0 })  
+a) db.users.find({}, { name: 1, _id: 0 })  
 a) MongoDB throws an error  
 a) Returns only the email field  
 a) db.users.find({}, { name: 1, age: 0 })  
-a) db.users.find({}, { \_id: 0 })  
+a) db.users.find({}, { _id: 0 })  
 **2.17 Given an aggregation expression using $match, $group, identify the correct output.**  
 Multiple Choice Questions  
 1\. What does the $match stage do in an aggregation pipeline?  
@@ -914,28 +874,26 @@ d) Projects only specific fields
 
 2\. Given the following collection:
 
-json  
-Copy  
-Edit  
-\[  
-  { "\_id": 1, "category": "A", "price": 10 },  
-  { "\_id": 2, "category": "B", "price": 20 },  
-  { "\_id": 3, "category": "A", "price": 30 },  
-  { "\_id": 4, "category": "B", "price": 40 }  
-\]  
+```json  
+[  
+  { "_id": 1, "category": "A", "price": 10 },  
+  { "_id": 2, "category": "B", "price": 20 },  
+  { "_id": 3, "category": "A", "price": 30 },  
+  { "_id": 4, "category": "B", "price": 40 }  
+]  
+```
 What does the following aggregation pipeline return?
 
-js  
-Copy  
-Edit  
-db.items.aggregate(\[  
+```js  
+db.items.aggregate([  
   { $match: { category: "A" } },  
-  { $group: { \_id: "$category", total: { $sum: "$price" } } }  
-\])  
-a) { "\_id": "A", "total": 40 }  
-b) { "\_id": "B", "total": 60 }  
-c) { "\_id": "A", "total": 30 }  
-d) { "\_id": "A", "total": 10 }
+  { $group: { _id: "$category", total: { $sum: "$price" } } }  
+])  
+```
+a) { "_id": "A", "total": 40 }  
+b) { "_id": "B", "total": 60 }  
+c) { "_id": "A", "total": 30 }  
+d) { "_id": "A", "total": 10 }
 
 3\. What is the purpose of the $group stage?  
 a) Aggregates documents based on specified fields  
@@ -952,59 +910,53 @@ d) A limit on results
 5\. Which of the following pipelines groups documents by department and calculates the average salary?  
 a)
 
-js  
-Copy  
-Edit  
-db.employees.aggregate(\[  
-  { $group: { \_id: "$department", avgSalary: { $avg: "$salary" } } }  
-\])  
+```js  
+db.employees.aggregate([  
+  { $group: { _id: "$department", avgSalary: { $avg: "$salary" } } }  
+])  
+```
 b)
 
-js  
-Copy  
-Edit  
-db.employees.aggregate(\[  
+```js  
+db.employees.aggregate([  
   { $match: { department: { $exists: true } } },  
   { $avg: { department: "$salary" } }  
-\])  
+])  
+```
 c)
 
-js  
-Copy  
-Edit  
-db.employees.aggregate(\[  
+```js  
+db.employees.aggregate([  
   { $sort: { salary: 1 } },  
-  { $group: { \_id: "$department", avgSalary: { $sum: "$salary" } } }  
-\])  
+  { $group: { _id: "$department", avgSalary: { $sum: "$salary" } } }  
+])  
+```
 d)
 
-js  
-Copy  
-Edit  
-db.employees.aggregate(\[  
+```js  
+db.employees.aggregate([  
   { $group: { avgSalary: { $avg: "$salary" } } }  
-\])  
+])  
+```
 Answer Page  
 b) Filters documents based on a condition  
-a) { "\_id": "A", "total": 40 }  
+a) { "_id": "A", "total": 40 }  
 a) Aggregates documents based on specified fields  
 a) At least one accumulator like $sum or $avg  
 a)  
-js  
-Copy  
-Edit  
-db.employees.aggregate(\[  
-  { $group: { \_id: "$department", avgSalary: { $avg: "$salary" } } }  
-\])
+```js  
+db.employees.aggregate([  
+  { $group: { _id: "$department", avgSalary: { $avg: "$salary" } } }  
+])
+```
 
 **3.1 Given a query that is performing a collection scan, identify which index would improve the performance of this query.**  
 Multiple Choice Questions  
 1\. What type of index would speed up the following query?
 
-js  
-Copy  
-Edit  
+```js  
 db.products.find({ price: 100 })  
+```
 a) Compound index on { price: 1, name: 1 }  
 b) Single-field index on { price: 1 }  
 c) Text index on { description: "text" }  
@@ -1012,16 +964,15 @@ d) No index is needed
 
 2\. How can you check if a query is using an index?  
 a) Use .explain("executionStats")  
-b) Use .aggregate(\[{ $indexScan }\])  
+b) Use .aggregate([{ $indexScan }])  
 c) Use .find().indexStats()  
 d) Use .profile()
 
 3\. Given the following query:
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find({ tags: "mongodb" })  
+```
 Which index would improve performance?  
 a) { tags: 1 }  
 b) { tags: \-1 }  
@@ -1050,10 +1001,9 @@ a) db.collection.getIndexes()
 Multiple Choice Questions  
 1\. Given the following query:
 
-js  
-Copy  
-Edit  
+```js  
 db.posts.find({ tags: "mongodb" })  
+```
 Which index would improve performance?  
 a) { tags: 1 }  
 b) { tags: \-1 }  
@@ -1074,39 +1024,34 @@ d) It only works for numeric values
 
 4\. Given the following documents:
 
-json  
-Copy  
-Edit  
-\[  
-  { "\_id": 1, "tags": \["mongodb", "database"\] },  
-  { "\_id": 2, "tags": \["nosql", "database"\] },  
-  { "\_id": 3, "tags": \["mongodb", "performance"\] }  
-\]  
+```json  
+[  
+  { "_id": 1, "tags": ["mongodb", "database"] },  
+  { "_id": 2, "tags": ["nosql", "database"] },  
+  { "_id": 3, "tags": ["mongodb", "performance"] }  
+]  
+```
 Which query would benefit from a multikey index on { tags: 1 }?  
 a)
 
-js  
-Copy  
-Edit  
+```js  
 db.posts.find({ tags: "mongodb" })  
+```
 b)
 
-js  
-Copy  
-Edit  
-db.posts.find({ tags: { $all: \["mongodb", "database"\] } })  
+```js  
+db.posts.find({ tags: { $all: ["mongodb", "database"] } })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.posts.find({ tags: { $size: 2 } })  
+```
 d)
 
-js  
-Copy  
-Edit  
+```js  
 db.posts.find({ tags: { $exists: true } })  
+```
 5\. If a multikey index is created on an array field, what limitation does it have?  
 a) It cannot be used in compound indexes  
 b) It cannot be used with sorting operations  
@@ -1118,20 +1063,18 @@ a) { tags: 1 }
 c) Multikey index  
 b) It creates an index entry for each element in an array field  
 a)  
-js  
-Copy  
-Edit  
+```js  
 db.posts.find({ tags: "mongodb" })  
+```
 b) It cannot be used with sorting operations
 
 **3.3 Given a query with no constraint and a sort of two fields that is doing collection scans, identify which index would improve the performance of this query.**  
 Multiple Choice Questions  
 1\. Given the following query:
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ age: 1, salary: \-1 })  
+```
 Which index would improve the performance of this query?  
 a) { age: 1, salary: \-1 }  
 b) { salary: \-1, age: 1 }  
@@ -1142,7 +1085,7 @@ d) { salary: \-1 }
 a) Perform a collection scan  
 b) Return an error  
 c) Automatically create an index  
-d) Use the default index on \_id
+d) Use the default index on _id
 
 3\. Which of the following statements about compound indexes is true?  
 a) They can optimize queries that filter or sort on multiple fields  
@@ -1153,28 +1096,24 @@ d) Compound indexes are less efficient than single-field indexes
 4\. Given a compound index { age: 1, salary: \-1 }, which query can efficiently use the index?  
 a)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ age: 1, salary: \-1 })  
+```
 b)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ salary: \-1, age: 1 })  
+```
 c)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ salary: 1, age: \-1 })  
+```
 d)
 
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ age: \-1 })  
+```
 5\. Why does the order of fields in a compound index matter?  
 a) MongoDB only allows sorting on the first indexed field  
 b) Indexes are used in the order they are defined  
@@ -1186,10 +1125,9 @@ a) { age: 1, salary: \-1 }
 a) Perform a collection scan  
 a) They can optimize queries that filter or sort on multiple fields  
 a)  
-js  
-Copy  
-Edit  
+```js  
 db.users.find().sort({ age: 1, salary: \-1 })  
+```
 b) Indexes are used in the order they are defined
 
 **3.4 Identify which index exists or the number of indexes that exist for a collection.**  
@@ -1208,10 +1146,9 @@ d) It depends on the collection size
 
 3\. Given the following command:
 
-js  
-Copy  
-Edit  
+```js  
 db.products.getIndexes()  
+```
 What does it return?  
 a) The names of all collections  
 b) The indexes defined on the products collection  
@@ -1221,28 +1158,24 @@ d) The schema of products
 4\. Which command provides detailed information about index usage?  
 a)
 
-js  
-Copy  
-Edit  
+```js  
 db.collection.explain("executionStats").find(query)  
+```
 b)
 
-js  
-Copy  
-Edit  
-db.collection.indexStats()  
+```js  
+db.collection.indexStats()
+```
 c)
 
-js  
-Copy  
-Edit  
-db.collection.listIndexes()  
+```js  
+db.collection.listIndexes()
+```
 d)
 
-js  
-Copy  
-Edit  
-db.collection.countIndexes()  
+```js  
+db.collection.countIndexes()
+```
 5\. What is a reason to check existing indexes on a collection?  
 a) To determine if an index needs to be added for query optimization  
 b) To remove unused indexes  
@@ -1254,10 +1187,9 @@ a) db.collection.getIndexes()
 b) 1  
 b) The indexes defined on the products collection  
 a)  
-js  
-Copy  
-Edit  
+```js  
 db.collection.explain("executionStats").find(query)  
+```
 d) All of the above  
 **3.5 Identify the explain plan outputs that signify a potential performance issue, specifically whether an index is present or not for the given query.**  
 Multiple Choice Questions  
@@ -1347,10 +1279,9 @@ d) It cannot be used with text indexes
 
 2\. Given the error message:
 
-css  
-Copy  
-Edit  
+```css   
 Cannot create a compound index that includes a multi-key field.  
+```
 What caused this error?  
 a) An attempt to index an array field in a compound index  
 b) Using $text indexes on an array field  
@@ -1616,7 +1547,7 @@ c) db.listParameters()
 d) mongo \--configList
 
 3\. How do you check the wiredTiger cache size in mongod?  
-a) db.serverStatus().wiredTiger.cache\["maximum bytes configured"\]  
+a) db.serverStatus().wiredTiger.cache["maximum bytes configured"]  
 b) db.wiredTigerCacheSize()  
 c) mongo \--cacheSize  
 d) db.getParameter({ wiredTigerCacheSize: 1 })
@@ -1624,7 +1555,7 @@ d) db.getParameter({ wiredTigerCacheSize: 1 })
 Answer Page  
 a) db.runCommand({ getParameter: 1, featureCompatibilityVersion: 1 })  
 a) db.adminCommand({ getParameter: '\*' })  
-a) db.serverStatus().wiredTiger.cache\["maximum bytes configured"\]  
+a) db.serverStatus().wiredTiger.cache["maximum bytes configured"]  
 **5.1 Identify the meaning of common alerts.**  
 Multiple Choice Questions  
 1\. What does the MongoDB alert "Replication Lag Detected" indicate?  
@@ -1790,7 +1721,7 @@ c) Frequent Index Rebuilds
 d) Excessive Memory Usage
 
 2\. How can you detect if the storage engine is out of space?  
-a) db.serverStatus().wiredTiger.cache\["maximum bytes configured"\]  
+a) db.serverStatus().wiredTiger.cache["maximum bytes configured"]  
 b) db.stats().storageSize  
 c) df \-h (Linux) or dir (Windows)  
 d) All of the above
@@ -1920,15 +1851,15 @@ a) backupAdmin
 Multiple Choice Questions  
 1\. How do you assign a role to a user in MongoDB?  
 a) db.grantRoleToUser()  
-b) db.createUser({ roles: \[...\] })  
+b) db.createUser({ roles: [...] })  
 c) db.userRoles.add()  
 d) db.auth.assignRole()
 
 2\. How do you revoke a role from a user?  
 a) db.revokeRolesFromUser()  
 b) db.removeRoleFromUser()  
-c) db.updateUser({ removeRole: \[...\] })  
-d) db.modifyUser({ revokeRole: \[...\] })
+c) db.updateUser({ removeRole: [...] })  
+d) db.modifyUser({ revokeRole: [...] })
 
 3\. Can a user have multiple roles in MongoDB?  
 a) Yes  
@@ -1947,7 +1878,7 @@ c) The last assigned role overwrites previous roles
 d) The user is locked out
 
 Answer Page  
-b) db.createUser({ roles: \[...\] })  
+b) db.createUser({ roles: [...] })  
 a) db.revokeRolesFromUser()  
 a) Yes  
 b) db.runCommand({ rolesInfo: \<username\> })  
